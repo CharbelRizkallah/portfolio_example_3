@@ -1,23 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import { client } from "./client.js";
+import About from "./components/About.jsx";
+import Contact from "./components/Contact.jsx";
+import Education from "./components/Education.jsx";
+import Experience from "./components/Experience.jsx";
+import Header from "./components/Header.jsx";
+import Projects from "./components/Projects.jsx";
+
 
 function App() {
+  const [profile, setProfile] = useState(null);
+  const [work, setWork] = useState(null);
+  const [education, setEducation] = useState(null);
+  const [experience, setExperience] = useState(null);
+
+  useEffect(() => {
+      client.fetch(`*[_type == "profile"]`).then((profile) => setProfile(profile));
+      client.fetch(`*[_type == "work"]`).then((work) => setWork(work));
+      client.fetch(`*[_type == "education"]`).then((education) => setEducation(education));
+      client.fetch(`*[_type == "experience"]`).then((experience) => setExperience(experience));
+  },[])
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="">
+      {profile?.map((prof, index) => index === 0 ? 
+      <div  key={index}>
+      <Header profile={prof} work={work} />
+      <About profile={prof} />
+      <Education education={education} />
+      <Experience experience={experience} />
+      <Projects work={work} />
+      <Contact profile={prof} />
+      </div>
+       : '')}
+
     </div>
   );
 }

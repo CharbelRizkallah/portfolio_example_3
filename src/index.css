@@ -1,13 +1,67 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* For Webkit-based browsers (Chrome, Safari and Opera) */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* For IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+body {
+  font-family: 'Noto Sans', sans-serif;
+}
+
+
+.timeline-left::after {
+  content: '';
+  background-color: #d1d5db;
+  position: absolute;
+  bottom: 0px;
+  top: 0px;
+  left: 100%;
+  margin-left: -0.1rem;
+  z-index: -1;
+  width: 3px;
+}
+
+
+.timeline-right::before {
+  content: '';
+  background-color: #d1d5db;
+  position: absolute;
+  bottom: 0px;
+  top: 0%;
+  left:0%;
+  margin-left: -0.05rem;
+  z-index: -1;
+  width: 3px;
+}
+
+.timeline-edu::after {
+  content: '';
+  background-color: #d1d5db;
+  position: absolute;
+  bottom: 0px;
+  top: -100%;
+  left: 100%;
+  margin-left: -0.1rem;
+  z-index: -1;
+  width: 3px;
+}
+
+
+@media screen and (max-width: 767px) {
+  .timeline-left::after{
+    left:0%;
+  }
+
+  .timeline-edu{
+    left:0%;
+  }
 }
